@@ -22,6 +22,7 @@ func main() {
 	ginDefault.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data":"Sistem Penjualan Perlengkapan Bayi API"})
 	})
+	
 	ginDefault.GET("/penjualan", controllers.TampilPenjualan)
 	ginDefault.POST("/penjualan", controllers.TambahPenjualan)
 	// Routes End //
