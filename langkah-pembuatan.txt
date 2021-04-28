@@ -1,0 +1,35 @@
+// Preparation //
+mk-dir golang-uts
+go mod init + nama modul (golang-uts) => otomatis membuat go.mod
+open folder yang telah dibuat tadi
+go get github.com/gin-gonic/gin github.com/jinzhu/gorm
+
+// First Step Start //
+buat main.go
+package main + import(net, gin-gonic) + func main()
+func main()  {
+	ginDefault := gin.Default();
+
+	ginDefault.GET("/", func(c *gin.Context){
+		c.JSON(http.StatusOK, gin.H{"data":"Sistem Penjualan Perlengkapan Bayi API"})
+	})
+	
+	ginDefault.Run()
+}
+// First Step End //
+
+// Second Step Start // => Pembuatan Folder models
+buat folder "models" + buat file perlengkapan-bayi.go
+isi seluruh coding perlengkapan-bayi.go
+=> file ini diperlukan untuk di database, lalu kita buat file setup.go
+buat setup.go
+isi seluruh coding setup.go
+import ke main.go -> sesuai nama modul di go.mod, contoh: "golang-uts/models"
+dibawah ginDefault, ketik: 
+    db := models.SetupModels();     // pemanggilan db pada file setup folder models
+    r.Use(func(c *gin.Context) {    // penggunaan deklarasi db diatas pada file main.go ini
+		c.Set("db", db)             // tiap program dijalankan harus melalui proses ini
+		c.Next()                    // lalu dilanjutkan pada proses berikutnya
+	})
+
+// pause on minute 26.16 , please playback on last error for continue the program //
